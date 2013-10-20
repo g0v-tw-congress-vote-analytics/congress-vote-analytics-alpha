@@ -54,17 +54,6 @@ if($_SESSION['username'] != null)
 				echo "<tr><td>$ser </td><td><a href='politician.php?pid=$row[0]&pname=$row[1]'>$row[1] </a> </td>";
 				echo "<td>$row[2] </td></tr>";
 				$ser ++;
-				/*
-				if($row[2] == null){
-					echo "<td>尚未表態</td><td></td></tr>";				
-				}else{
-					if($row[2] == 1){
-						echo "<td>支持</td><td>$row[3]</td></tr>";
-					}else{
-						echo "<td>反對</td><td>$row[3]</td></tr>";
-					}
-				
-				}*/
         }
 }
 else

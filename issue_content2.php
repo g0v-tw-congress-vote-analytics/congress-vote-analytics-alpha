@@ -61,31 +61,32 @@ if($_SESSION['username'] != null)
         echo "</form>";
 		
 		//立委立場排序
-		$sql3 = "SELECT p.name , i.vote , vote*scale as cont,p.id
-				FROM  `politician` as p left join `ivsp` as i
-				on p.id = i.pid and i.isid ='$issueid' order by cont desc";
-		$result3 = mysql_query($sql3);
 		echo '<br><h3>立委立場：</h3>';
-		echo "<p>各個立委針對此一議題的立場。</p>
-		<table><tr><td>序號</td><td>立委姓名</td><td>立場</td><td>立場指數</td></tr>";
+		echo "<p>立委針對各議題的立場。</p>
+		<table><tr><td>序號</td><td>議題名稱</td><td>立場</td></tr>";
 		$ser =1;
-		while($row3 = mysql_fetch_row($result3))
+        //將資料庫裡的所有留言資料顯示在畫面上
+        $sql2 = "SELECT issue.id, issue.name, ivsp.vote, ivsp.scale,ivsp.vote * ivsp.scale as cont
+				FROM  `issue` LEFT JOIN  `ivsp` ON issue.id = ivsp.isid
+				AND ivsp.pid = $pid order by cont desc";
+        $result2 = mysql_query($sql2);
+        while($row = mysql_fetch_row($result2))
         {
-			if($row3 == null){
-				echo "<tr><td>$ser</td><td>本議題尚未有立場資料</td><td></td><td></td></tr>";
-			}else{
-				echo "<tr><td>$ser</td><td><a href='politician.php?pid=$row3[3]&pname=$row3[0]'>$row3[0]</a></td>";
+				
+				echo "<tr><td>$ser</td><td><a href='issue_content2.php?pid=$pid&id=$row[0]&pname=$pname'>$row[1]</a>  </td>";
 				$ser++;
-				if($row3[1] == 1){
-					echo "<td>支持</td><td>$row3[2]</td></tr>";
-				}else if($row3[1] == -1){
-					echo "<td>反對</td><td>$row3[2]</td></tr>";
-				}else if($row3[1] == null){
-					echo "<td>尚未表態</td><td>0</td></tr>";
+				if($row[2] == null){
+					echo "<td>尚未表態</td><td></td></tr>";				
+				}else{
+					if($row[2] == 1){
+						echo "<td>支持</td><td>$row[3]</td></tr>";
+					}else{
+						echo "<td>反對</td><td>$row[3]</td></tr>";
+					}
+				
 				}
-			}			
-			
-		}
+        }
+
 		echo "</table>";
 }
 else
