@@ -47,11 +47,13 @@ if($_SESSION['username'] != null)
 					GROUP BY ip.pid
 					ORDER BY cont DESC ";
         $result2 = mysql_query($sql2);
+		$ser = 1;
         while($row = mysql_fetch_row($result2))
         {
 				
-				echo "<tr><td>$row[0] </td><td><a href='politician.php?pid=$row[0]&pname=$row[1]'>$row[1] </a> </td>";
+				echo "<tr><td>$ser </td><td><a href='politician.php?pid=$row[0]&pname=$row[1]'>$row[1] </a> </td>";
 				echo "<td>$row[2] </td></tr>";
+				$ser ++;
 				/*
 				if($row[2] == null){
 					echo "<td>尚未表態</td><td></td></tr>";				

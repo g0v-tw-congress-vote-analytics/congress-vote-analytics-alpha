@@ -51,7 +51,7 @@ if($username != null)
         while($row = mysql_fetch_row($result2))
         {
 				
-				echo "<tr><td>$ser</td><td><a href='issue_content.php?id=$row[0]'>$row[1]</a>  </td>";
+				echo "<tr><td>$ser</td><td><a href='issue_content2.php?pid=$pid&id=$row[0]&pname=$pname'>$row[1]</a>  </td>";
 				$ser++;
 				if($row[2] == null){
 					echo "<td>尚未表態</td><td></td></tr>";				
