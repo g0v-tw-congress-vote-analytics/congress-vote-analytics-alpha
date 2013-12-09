@@ -94,5 +94,5 @@ else
         echo '<meta http-equiv=REFRESH CONTENT=2;url=index.php>';
 }
 ?>
- </body>
+</body>
 </html>
